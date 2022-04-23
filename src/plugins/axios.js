@@ -2,7 +2,6 @@
 // 这个文件是一个自定义插件 不过是vuecli帮我们封装好的 里面是封装axios的方法来调用接口 以及快速的为项目配置多个接口 以我现在的水平还不会自己封装插件
 import Vue from 'vue'
 import axios from 'axios'
-
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -10,7 +9,8 @@ import axios from 'axios'
 // 自定义axios配置
 const config = {
   // baseURL: process.env.baseURL || process.env.apiUrl || ""
-  baseURL: 'http://www.liulongbin.top:3006'
+  // 基准地址
+  baseURL: 'http://127.0.0.1:8888/api/private/v1/'
   // timeout: 60 * 1000, // Timeout
   // withCredentials: true, // Check cross-site Access-Control
 }
