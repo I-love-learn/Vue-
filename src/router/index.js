@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/home/HomeView'
+import Welcome from '@/components/welcome/Welcome'
+import Users from '@/views/users/UsersView'
+import Roles from '@/views/roles/RolesView'
 // 在main.js中已经引入过 element的模块了 而element模块中将$message挂载到了vue的prototype上，因此 这里不需要再次引入element模块了  element组件中的this.$message弹出框的this是vue实例 而router中的this就是router实例，因此不生效 这里我的做法是在下面new一个Vue实例 然后弹出框
 // @需要注意的是 import是异步加载的 因此element中this.$message挂载到vue.prototype的时机在下面的router.beforeEach声明路由首位之前，因此这里可以执行 new Vue().$message ，因为此时$message已经挂载到Vue的原型对象上了，假如this.$message挂载到vue.prototype的时机在router.beforeEach后就要报错了，因此安全起见 可以在这里也引入element模块
 Vue.use(VueRouter)
@@ -19,7 +22,13 @@ const routes = [
   // import命令能够接受什么参数，import()函数就能接受什么参数，两者区别主要是后者为动态加载。
   {
     path: '/home',
-    component: Home
+    component: Home,
+    redirect: '/welcome',
+    children: [
+      { path: '/welcome', component: Welcome },
+      { path: 'users', component: Users },
+      { path: 'roles', component: Roles }
+    ]
   }
 ]
 

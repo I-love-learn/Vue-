@@ -16,12 +16,18 @@ const config = {
 }
 // 创建一个axios实例
 const _axios = axios.create(config)
-// 请求拦截器 在请求之前做一些配置
+// 请求拦截器 在请求之前做一些配置 请求发送到服务器前对请求做一些预处理
 _axios.interceptors.request.use(
+  // config是配置对象 里面包含baseURL data headers method timeout 等等属性
   function (config) {
+    // @ 这里我们为请求拦截器的header对象设置一个新属性，
     // Do something before request is sent 在发送请求之前做些什么
+    // #为请求头添加一个属性 authorization 里面携带的是token值
+    config.headers.Authorization = localStorage.getItem('token')
+    // 处理完毕必须return出去 否则use使用的是个空值
     return config
   },
+
   function (error) {
     // Do something with request error 处理请求错误
     return Promise.reject(error)
