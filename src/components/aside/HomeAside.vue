@@ -75,11 +75,12 @@ export default {
   }
   .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
-    min-height: calc(100vh - 80px - 25px - 60px);
+    // 最小高度100%父盒子高度减去按钮高度 保证每条线长度都能铺满盒子
+    min-height: calc(100% - 25px);
     /* calc想生效 必须符号两边加空格 */
   }
   .el-menu--collapse {
-    min-height: calc(100vh - 80px - 25px - 60px);
+    min-height: calc(100% - 25px);
   }
 }
 </style>

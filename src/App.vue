@@ -8,12 +8,7 @@
 <script>
 export default {
   name: 'app',
-  components: {},
-  created() {
-    // 页面刚进去就执行异步请求获取数据
-    this.$store.dispatch('initMenus')
-    this.$store.dispatch('initUserList')
-  }
+  components: {}
 }
 </script>
 

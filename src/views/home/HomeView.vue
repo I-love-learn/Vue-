@@ -72,6 +72,10 @@ export default {
     HomeHeader,
     HomeAside,
     HomeFooter
+  },
+  created() {
+    // 页面刚进去就执行异步请求获取数据
+    this.$store.dispatch('initMenus')
   }
 }
 </script>

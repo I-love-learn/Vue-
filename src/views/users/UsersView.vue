@@ -355,6 +355,9 @@ export default {
           })
         })
     }
+  },
+  created() {
+    this.$store.dispatch('initUserList')
   }
 }
 </script>
@@ -363,12 +366,7 @@ export default {
 .warp {
   padding: 20px;
   /* element 标签不可直接拿过来样式覆盖 要加. 一般标签名默认自带类名*/
-  .el-breadcrumb {
-    margin-bottom: 15px;
-    font-size: 12px;
-  }
   .el-card {
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
     height: 448px;
     .el-table {
       margin-top: 10px;

@@ -22,7 +22,9 @@ export default new Vuex.Store({
       pagenum: 1,
       pagesize: 5
     },
-    total: 0
+    total: 0,
+    // 权限列表
+    rightsList: []
   },
   getters: {
     filterDateList(state) {
@@ -109,6 +111,16 @@ export default new Vuex.Store({
       context.state.userList = data.data.users
       // total是数据总数，获取他是为了后面做分页用的
       context.state.total = data.data.total
+    },
+    async initRightsList(context) {
+      const { data } = await vue.$axios({
+        url: '/rights/list',
+        method: 'GET'
+      })
+      if (data.meta.status !== 200) {
+        return vue.$message.error('获取权限列表失败')
+      }
+      context.state.rightsList = data.data
     }
   },
   modules: {}
