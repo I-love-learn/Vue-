@@ -24,7 +24,10 @@ export default new Vuex.Store({
     },
     total: 0,
     // 权限列表
-    rightsList: []
+    rightsList: [],
+    // 角色列表
+    rolesList: [],
+    rightsTreeList: []
   },
   getters: {
     filterDateList(state) {
@@ -121,6 +124,27 @@ export default new Vuex.Store({
         return vue.$message.error('获取权限列表失败')
       }
       context.state.rightsList = data.data
+    },
+    async initRolesList(context) {
+      const { data } = await vue.axios({
+        url: '/roles',
+        method: 'GET'
+      })
+      if (data.meta.status !== 200) {
+        return vue.$message.error('获取角色列表失败')
+      }
+      context.state.rolesList = data.data
+    },
+    // 获取树状权限结构
+    async initRightsTreeList(context) {
+      const { data } = await vue.$axios({
+        url: 'rights/tree',
+        method: 'GET'
+      })
+      if (data.meta.status !== 200) {
+        return vue.$message.error('获取权限列表失败')
+      }
+      context.state.rightsTreeList = data.data
     }
   },
   modules: {}

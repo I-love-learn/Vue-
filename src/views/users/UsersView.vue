@@ -166,9 +166,30 @@
               <!--作用域插槽传递id -->
               <el-button type="danger" icon="el-icon-delete" size="small" @click="removeUser(scope.row.id)"></el-button>
             </el-tooltip>
-            <el-tooltip class="item" effect="dark" content="权限设置" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="small"></el-button>
+            <el-tooltip class="item" effect="dark" content="角色分配" placement="top" :enterable="false">
+              <el-button type="warning" icon="el-icon-setting" size="small" @click="roleAssign(scope.row)"></el-button>
             </el-tooltip>
+            <!-- 角色分配的弹出框 -->
+            <!-- @dialog最好最好放到最外层容器内，与其他元素同级，这么做好处是不会出bug，放在table和el-table-column标签中就就不会显示，放template slot-scope标签中则会显示 -->
+            <el-dialog title="角色分配" :visible.sync="dialogroleAssignVisible">
+              <el-form :model="roleAssignData">
+                <el-form-item label="当前用户：" label-width="100px"> {{ roleAssignData.username }} </el-form-item>
+                <el-form-item label="当前角色：" label-width="100px"> {{ roleAssignData.role_name }} </el-form-item>
+                <el-form-item label="角色设置：" label-width="100px">
+                  <el-select v-model="roleAssignData.roleid" placeholder="请选择要更改的角色">
+                    <!-- 老师这里没有用el-form以及el-form-item 而是自己用p画的页面 <p>当前用户：{{scope.row.username}}</p> <p>请选择：<el-select></el-select></p>-->
+                    <template v-for="item in $store.state.rolesList">
+                      <!-- 这里可以省略template 直接在option上for循环。 -->
+                      <el-option :label="item.roleName" :value="item.id" :key="item.id"></el-option>
+                    </template>
+                  </el-select>
+                </el-form-item>
+              </el-form>
+              <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogroleAssignVisible = false">取 消</el-button>
+                <el-button type="primary" @click="assignRole">确 定</el-button>
+              </div>
+            </el-dialog>
           </template>
         </el-table-column>
       </el-table>
@@ -199,7 +220,15 @@ export default {
       },
       username: '',
       // 控制编辑用户框隐藏or显示
-      dialogEditUser: false
+      dialogEditUser: false,
+      // 角色分配控制显示隐藏
+      dialogroleAssignVisible: false,
+      roleAssignData: {
+        id: 0,
+        username: '',
+        role_name: '',
+        roleid: ''
+      }
     }
   },
   methods: {
@@ -354,6 +383,33 @@ export default {
             message: '已取消删除'
           })
         })
+    },
+    // 点击权限管理的事件
+    roleAssign(row) {
+      // 这里老师由于没有用store的缘故，又在这里重新写了一次获取角色列表的ajax请求，这里可以看出store还是挺方便的。
+      this.$store.dispatch('initRolesList')
+      this.dialogroleAssignVisible = true
+      this.roleAssignData.username = row.username
+      this.roleAssignData.role_name = row.role_name
+      this.roleAssignData.id = row.id
+      this.roleAssignData.roleid = ''
+    },
+    // 分配角色的确定按钮
+    async assignRole() {
+      if (this.roleAssignData.role !== '') {
+        const { data } = await this.$axios({
+          url: `users/${this.roleAssignData.id}/role`,
+          // 除了get用params 其他的我们都用data
+          method: 'PUT',
+          data: { rid: this.roleAssignData.roleid }
+        })
+        if (data.meta.status !== 200) {
+          return this.$message.error('权限更新失败')
+        }
+        this.$message.success('权限更新成功')
+      }
+      this.dialogroleAssignVisible = false
+      this.$store.dispatch('initUserList')
     }
   },
   created() {

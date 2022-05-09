@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Button, Input, Form, FormItem, Message, MessageBox, Container, Header, Aside, Footer, Main, Menu, MenuItem, Submenu, Drawer, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Tag, Switch, Tooltip, Pagination, Dialog } from 'element-ui'
+import { Button, Input, Form, FormItem, Message, MessageBox, Container, Header, Aside, Footer, Main, Menu, MenuItem, Submenu, Drawer, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Tag, Switch, Tooltip, Pagination, Dialog, Tree, Loading, Select, Option } from 'element-ui'
 // 注册是要一个个注册 而不能同时注册 用逗号分开不可以
 Vue.use(Button)
 Vue.use(Form)
@@ -27,6 +27,10 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Pagination)
 Vue.use(Dialog)
+Vue.use(Tree)
+Vue.use(Loading)
+Vue.use(Select)
+Vue.use(Option)
 // $message挂载到prototype上 不需要use注册
 Vue.prototype.$message = Message
 // 这么引入才是正确的 http://t.zoukankan.com/cxxb-p-11989637.html
