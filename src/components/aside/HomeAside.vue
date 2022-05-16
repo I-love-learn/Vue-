@@ -12,6 +12,7 @@
       <!-- @ v-for 想用索引时要和item一起放在括号里声明 不能直接用  使用时直接index 而不要item.index -->
       <!-- 给el-menu加了 router属性后 会根据index的值跳转对应路由页面 这里index我们用的是index值1234这种，数字作为路由地址不太好，所以要改造一下，这里用item.path值 -->
       <el-submenu v-for="(item, index) in $store.state.menusList" :key="item.id" :index="`/home/${item.path}`">
+        <!-- path是我们设置的路由 -->
         <!-- 一级菜单模板区域 -->
         <template slot="title">
           <!-- 图标 -->

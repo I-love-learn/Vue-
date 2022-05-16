@@ -49,6 +49,7 @@ export default {
   justify-content: space-between;
   .system_logo {
     width: 80px;
+    margin-left: 10px;
   }
   .system_name {
     font-size: 28px;

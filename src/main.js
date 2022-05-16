@@ -8,7 +8,11 @@ import './plugins/element.js'
 import '@/assets/style/init.css'
 // 字体图标css
 import '@/assets/fonts/iconfont.css'
+// vue-table-with-tree-grid引入并注册
+import ZkTable from 'vue-table-with-tree-grid'
 
+Vue.use(ZkTable)
+// Vue.component(ZkTable.name, ZkTable) 第二种注册方式 直接注册为全局组件
 Vue.config.productionTip = false
 
 new Vue({

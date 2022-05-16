@@ -27,3 +27,6 @@ body .el-table-filter   .el-checkbox__label{
 .el-table .el-table__expanded-cell {
   padding: 20px 40px;
 }
+.el-cascader-panel {
+  height: 260px;
+}
