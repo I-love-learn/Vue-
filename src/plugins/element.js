@@ -1,5 +1,41 @@
 import Vue from 'vue'
-import { Button, Input, Form, FormItem, Message, MessageBox, Container, Header, Aside, Footer, Main, Menu, MenuItem, Submenu, Drawer, Breadcrumb, BreadcrumbItem, Card, Row, Col, Table, TableColumn, Tag, Switch, Tooltip, Pagination, Dialog, Tree, Loading, Select, Option, Cascader } from 'element-ui'
+import {
+  Button,
+  Input,
+  Form,
+  FormItem,
+  Message,
+  MessageBox,
+  Container,
+  Header,
+  Aside,
+  Footer,
+  Main,
+  Menu,
+  MenuItem,
+  Submenu,
+  Drawer,
+  Breadcrumb,
+  BreadcrumbItem,
+  Card,
+  Row,
+  Col,
+  Table,
+  TableColumn,
+  Tag,
+  Switch,
+  Tooltip,
+  Pagination,
+  Dialog,
+  Tree,
+  Loading,
+  Select,
+  Option,
+  Cascader,
+  Alert,
+  Tabs,
+  TabPane
+} from 'element-ui'
 // 注册是要一个个注册 而不能同时注册 用逗号分开不可以
 Vue.use(Button)
 Vue.use(Form)
@@ -32,6 +68,10 @@ Vue.use(Loading)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Cascader)
+Vue.use(Alert)
+Vue.use(Tabs)
+// 只要我们在下面use中选对按需导入的组件 上面的import会自动按需导入
+Vue.use(TabPane)
 // $message挂载到prototype上 不需要use注册
 Vue.prototype.$message = Message
 // 这么引入才是正确的 http://t.zoukankan.com/cxxb-p-11989637.html
