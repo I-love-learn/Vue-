@@ -24,6 +24,9 @@
         <!-- 二级菜单 -->
         <el-menu-item :index="`/home/${val.path}`" v-for="(val, index2) in item.children" :key="val.id" @click="active(`/home/${val.path}`)">
           <!-- ?这里我犯了个错误 没有把index的完整值作为参数传递 而是只用了${val.path} -->
+          <!-- @这里所有的:index和active后面的路由地址都可以省略不写/home/ 直接写成${val.path} 这是由于默认情况下路由的link跳转的地址是当前的父路由地址拼接跳转里写的地址，也就是说/home/写不写都会自动带上 至于这里案例应该不写拼接的是/ 当前父路由是/ 但是却拼接的是/home至于为什么我也不知道，或许是elementui的设定吧，但老师的那个不拼接默认就是/+${val.path}，我的不拼接/home却还是自动拼接了，这个以后再说，反正只要默认写完成地址就一定不会出错。 -->
+          <!-- 不对劲，经过我自己的测试 routerlinkto的确自动拼接了 /home 证明element并没有自动处理这个 还是我写的问题。 -->
+          <!-- @ 最终结论：不写/home/ 的确不会拼接/home/ 而是拼接的根目录 证明先前的结论是正确的，至于为什么前几次没测试出来，是因为页面没有重新刷新。 -->
           <i :class="$store.state.iconarr[index + 1 + '-' + (index2 + 1).toString()]"></i>
           <span>{{ val.authName }}</span>
         </el-menu-item>

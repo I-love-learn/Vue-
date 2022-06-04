@@ -38,7 +38,7 @@
                 <!-- el-tag组件 -->
                 <!-- disable-transitions是否禁用渐变动画 -->
                 <!-- attr_vals是一个由空格分割的字符串 -->
-                <el-tag :key="tag" v-for="tag in scope.row.attr_vals ? scope.row.attr_vals.split(' ') : []" closable :disable-transitions="false" @close="removeTag(scope.row, tag)">
+                <el-tag :key="tag" v-for="tag in scope.row.attr_vals ? scope.row.attr_vals.split(',') : []" closable :disable-transitions="false" @close="removeTag(scope.row, tag)">
                   {{ tag }}
                 </el-tag>
                 <!-- input v-if和button v-else来动态控制切换 -->
@@ -78,7 +78,7 @@
                 <!-- el-tag组件 -->
                 <!-- disable-transitions是否禁用渐变动画 -->
                 <!-- attr_vals是一个由空格分割的字符串 -->
-                <el-tag :key="tag" v-for="tag in scope.row.attr_vals ? scope.row.attr_vals.split(' ') : []" closable :disable-transitions="false" @close="removeTag(scope.row, tag)">
+                <el-tag :key="tag" v-for="tag in scope.row.attr_vals ? scope.row.attr_vals.split(',') : []" closable :disable-transitions="false" @close="removeTag(scope.row, tag)">
                   {{ tag }}
                 </el-tag>
                 <!-- input v-if和button v-else来动态控制切换 -->
@@ -328,10 +328,10 @@ export default {
     // 删除更简单的方法是第二个参数传索引 这样不需要写成数组.splice(数组.indexof(tag),1) 直接数组.splice(index,1)
     async removeTag(row, tag) {
       // 删除匹配到的字符串
-      const arr = row.attr_vals.split(' ')
+      const arr = row.attr_vals.split(',')
       // splice改变原数组 返回值是删掉的元素组成的数组
       arr.splice(arr.indexOf(tag), 1)
-      row.attr_vals = arr.join(' ')
+      row.attr_vals = arr.join()
       const { data } = await this.$axios({
         url: `categories/${row.cat_id}/attributes/${row.attr_id}`,
         method: 'PUT',
@@ -359,7 +359,7 @@ export default {
     // 输入完毕回车或者离开焦点触发事件
     async handleInputConfirm(row) {
       // 赋值 为了防止bug 因为我们转数组是以空格分隔的 为了防止bug 要把用户输入的空格全部替换掉
-      const value = row.inputValue.replace(/ /g, '')
+      const value = row.inputValue.replace(/,/g, ' ')
       const inputValue = value
       if (inputValue) {
         // 将新添加的数据存到数组中
@@ -367,10 +367,10 @@ export default {
         if (row.attr_vals === '') {
           row.attr_vals = inputValue
         } else {
-          const attrVals = row.attr_vals.split(' ')
+          const attrVals = row.attr_vals.split(',')
           attrVals.push(inputValue)
           // 数组转字符串是join() 括号里是用什么符号分割 什么都不屑默认就是逗号
-          row.attr_vals = attrVals.join(' ')
+          row.attr_vals = attrVals.join()
         }
         // 添加和删除的ajax其实最好单独写在外面的 因为用的相同接口，传的值不同。
         // 这里接口是编辑而不是新增
@@ -412,8 +412,9 @@ export default {
   .el-table {
     margin-top: 10px;
   }
-  .el-tag + .el-tag {
-    margin-left: 10px;
+  .el-tag {
+    margin-left: 0px !important;
+    margin-right: 10px !important;
   }
   .button-new-tag {
     margin: 5px 0;
