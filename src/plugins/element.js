@@ -40,7 +40,13 @@ import {
   Step,
   Checkbox,
   Upload
+  /* Timeline,
+  TimelineItem */
 } from 'element-ui'
+import Timeline from '@/plugins/timeline'
+import TimelineItem from '@/plugins/timeline-item'
+import '@/plugins/timeline-item/timeline-item.css'
+import '@/plugins/timeline/timeline.css'
 // 注册是要一个个注册 而不能同时注册 用逗号分开不可以
 Vue.use(Button)
 Vue.use(Form)
@@ -82,6 +88,11 @@ Vue.use(Steps)
 Vue.use(Step)
 Vue.use(Checkbox)
 Vue.use(Upload)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
+/* Vue.use(Timeline)
+Vue.use(TimelineItem) */
+// 这个版本的element ui 工具貌似没有这两个组件 我们用的是element的插件而非依赖，这个插件早就停更了
 // $message挂载到prototype上 不需要use注册
 Vue.prototype.$message = Message
 // 这么引入才是正确的 http://t.zoukankan.com/cxxb-p-11989637.html
