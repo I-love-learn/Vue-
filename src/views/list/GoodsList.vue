@@ -23,7 +23,7 @@
         </el-col>
         <!-- push栅格向右移动格数 span不写默认是24 -->
         <el-col :span="4">
-          <el-button type="primary" @click="add">添加商品</el-button>
+          <el-button type="primary" @click="add" class="add">添加商品</el-button>
         </el-col>
       </el-row>
       <!-- element ui和layui的表格分页还不相同 layui的表格分页是集成到一起的 而element ui表格和分页是两个不同的模块，分页会影响table显示的内容。 -->
@@ -44,7 +44,7 @@
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
             <!-- 俩按钮要放到scope插槽内接收当前的row -->
-            <el-button type="primary" icon="el-icon-edit" size="small" @click="edit(scope.row)">编辑</el-button>
+            <el-button type="primary" icon="el-icon-edit" size="small" @click="edit(scope.row.goods_id)">编辑</el-button>
             <el-button type="danger" icon="el-icon-delete" size="small" @click="remove(scope.row.goods_id)">删除</el-button>
           </template>
         </el-table-column>
@@ -208,6 +208,11 @@ export default {
     add() {
       // 编程式导航api，跳转至商品添加页面
       this.$router.push('/home/goods/add')
+    },
+    // 跳转编辑商品页面
+    edit(id) {
+      // 编程式导航api，跳转至商品编辑页面
+      this.$router.push({ path: '/home/goods/edit', query: { id: id } })
     }
   },
   created() {
@@ -233,7 +238,10 @@ export default {
     text-align: center;
   }
   .el-autocomplete {
-    width: 350px;
+    width: 100%;
+  }
+  .add {
+    margin-left: 10px;
   }
 }
 </style>

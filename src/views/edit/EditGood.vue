@@ -47,6 +47,7 @@
               <el-input v-model.trim="form.goods_number" clearable></el-input>
             </el-form-item>
             <el-form-item label="商品分类" prop="goods_cat">
+              <!-- 这里渲染不出默认值，原因是我们分割后的字符串每一项是字符串 而这里默认要求是数字 -->
               <el-cascader v-model="form.goods_cat" :options="options" @change="handleChange" :props="props" clearable></el-cascader>
             </el-form-item>
           </el-tab-pane>
@@ -78,7 +79,7 @@
             <!-- file-list上传的文件列表, 例如: [{name: 'food.jpg', url: 'https://xxx.cdn.com/xxx.jpg'}] 数组形式 这里就是默认已经上传的文件列表 暂时不需要 -->
             <!-- action上传的地址 上传图片api中提供的地址 这里用个计算属性 因为要获取当前的基准地址 也可以不用计算属性，直接写当前基准地址好了 这里要注意的是千万不要直接写upload 因为如果写成相对地址，那么upload会自动拼接当前的地址，也就是http://localhost:8080/#/home/goods/add/upload 因此这里写成绝对地址 我们的http基准地址为http://127.0.0.1:8888/api/private/v1/ 这个其实就是模拟的本地服务器地址 网页运行在一个地址上，服务器在另外一个地址上 -->
             <!-- 使用 list-type 属性来设置文件列表的样式 -->
-            <el-upload :action="$axios.defaults.baseURL + 'upload'" :on-preview="handlePreview" :on-remove="handleRemove" list-type="picture" :headers="headers" :on-success="getResponse">
+            <el-upload :action="$axios.defaults.baseURL + 'upload'" :on-preview="handlePreview" :on-remove="handleRemove" list-type="picture" :headers="headers" :on-success="getResponse" :file-list="fileList">
               <!-- on-successs文件上传成功时的钩子 是属性不是方法 -->
               <!-- on-remove文件列表移除文件时的钩子function(file, fileList) -->
               <!-- 加了headers请求头才真正上传成功 -->
@@ -126,6 +127,8 @@ export default {
         // 双向绑定内容,这个也是我们要上传的商品内容
         goods_introduce: '请输入商品内容'
       },
+      // 图片显示列表数据
+      fileList: [],
       // 动态参数
       manyAttrs: [],
       // 静态属性
@@ -191,7 +194,8 @@ export default {
       PicDialogVisible: false,
       picinfo: '',
       // 富文本编辑器设置
-      editorOption: {}
+      editorOption: {},
+      goods_id: 0
     }
   },
   computed: {
@@ -305,12 +309,19 @@ export default {
     },
     // 点击文件列表中已上传的文件的回调函数 在这里可以进行预览 放大事件
     handlePreview(file) {
-      // 在这里可以进行预览 放大事件 显示dialog
-      this.PicDialogVisible = true
-      // file.response.data.url图片的服务器地址
-      this.picinfo = file.response.data.url
-      // 这里先写弹出框再给图片信息赋值，和献给图片信息赋值再弹出框没有区别，因为dom渲染都是执行完一轮宏任务后才渲染的，dom的更改都是实时的，但渲染到页面不是立即的，事件循环中的dom更改是立即的，但页面渲染不是。
-      // vue的dom渲染是异步的。
+      // 这里if判断不生效 明天看下为何
+      if (!file.response) {
+        // 这里图片的返回路径都是服务器路径不是临时路径 因此还不知道能不能修改图片呢，不行，如果添加时上传的图片路径不是临时路径而是服务器路径的话，会崩溃服务器
+        this.picinfo = file.url
+        this.PicDialogVisible = true
+      } else {
+        // 在这里可以进行预览 放大事件 显示dialog
+        this.PicDialogVisible = true
+        // file.response.data.url图片的服务器地址
+        this.picinfo = file.response.data.url
+        // 这里先写弹出框再给图片信息赋值，和先给图片信息赋值再弹出框没有区别，因为dom渲染都是执行完一轮宏任务后才渲染的，dom的更改都是实时的，但渲染到页面不是立即的，事件循环中的dom更改是立即的，但页面渲染不是。
+        // vue的dom渲染是异步的。
+      }
     },
     // 点击文件列表中x号回调函数，这里进行删除已上传的文件。
     handleRemove(file, fileList) {
@@ -347,7 +358,7 @@ export default {
       // 关闭dialog
       this.PicDialogVisible = false
     },
-    // 添加商品
+    // 修改商品
     addGoodsInfo() {
       // 首先表单验证
       this.$refs.formRef.validate(async (valid) => {
@@ -363,6 +374,8 @@ export default {
           data.goods_cat = this.form.goods_cat.join(',')
           // attrs是一个数组形式，里面存着商品的参数，包含动态参数与静态属性 里面的数组元素是对象形式，属性为当前的参数或属性id，还有值
           data.attrs = []
+          // id
+          data.id = this.goods_id
           this.onlyAttrs.forEach((item) => {
             const obj = {}
             obj.attr_id = item.attr_id
@@ -387,14 +400,14 @@ export default {
           })
           // 发送请求 注意：商品名称必须是唯一的
           const { data: res } = await this.$axios({
-            url: 'goods',
-            method: 'post',
+            url: `goods${this.goods_id}`,
+            method: 'PUT',
             data
           })
           if (res.meta.status !== 201) {
-            return this.$message.error('添加失败')
+            return this.$message.error('修改失败')
           }
-          this.$message.success('添加成功')
+          this.$message.success('修改成功')
           // 成功后 跳转至商品列表
           this.$router.push('/home/goods')
         } else {
@@ -402,6 +415,40 @@ export default {
           return false
         }
       })
+    },
+    // 根据id获取当前商品的数据
+    async getGoodInfoById() {
+      const { data } = await this.$axios.get(`goods/${this.$route.query.id}`)
+      // axios.get()和axios.post()里不是对象不需要{}
+      if (data.meta.status !== 200) {
+        return this.$message.error('获取数据失败')
+      }
+      this.goods_id = data.data.goods_id
+      this.form.goods_name = data.data.goods_name
+      this.form.goods_price = data.data.goods_price + ''
+      this.form.goods_weight = data.data.goods_weight + ''
+      this.form.goods_number = data.data.goods_number + ''
+      const strArr = data.data.goods_cat.split(',')
+      const newArr = []
+      strArr.forEach((item) => {
+        // 级联选择器数组的元素要求是number类型 而服务器返回的是字符串
+        newArr.push(Number(item))
+      })
+      // 这里最好是把数据处理后放到一个新数组里，然后把数组再赋值给form.goods_cat，至于为什么前面说过
+      this.form.goods_cat = newArr
+      const picArr = []
+      const picsArr = []
+      data.data.pics.forEach((item) => {
+        const obj = {}
+        obj.name = item.pics_id
+        obj.url = item.pics_mid_url
+        picArr.push(obj)
+        const obj2 = {}
+        obj2.pic = item.pics_mid_url
+      })
+      this.fileList = picArr
+      this.form.pics = picsArr
+      this.form.goods_introduce = data.data.goods_introduce
     }
   },
   created() {
@@ -409,6 +456,8 @@ export default {
     this.initOption()
     // this.$axios.defaults.baseURL可以设置和获取当前基准地址
     /* console.log(this.$axios.defaults.baseURL); */
+    // 初始化商品数据
+    this.getGoodInfoById()
   }
 }
 </script>
