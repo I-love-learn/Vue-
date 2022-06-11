@@ -44,7 +44,8 @@ const routes = [
       { path: 'goods/add', component: Add },
       { path: 'goods/edit', component: Edit },
       // 导入组件第二种方式
-      { path: 'orders', component: () => import('@/views/order/OrderList') }
+      { path: 'orders', component: () => import('@/views/order/OrderList') },
+      { path: 'reports', component: () => import('@/views/report/ReportView') }
     ]
   }
 ]

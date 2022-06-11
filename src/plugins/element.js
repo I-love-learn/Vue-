@@ -45,6 +45,7 @@ import {
 } from 'element-ui'
 import Timeline from '@/plugins/timeline'
 import TimelineItem from '@/plugins/timeline-item'
+// 样式也要导入
 import '@/plugins/timeline-item/timeline-item.css'
 import '@/plugins/timeline/timeline.css'
 // 注册是要一个个注册 而不能同时注册 用逗号分开不可以

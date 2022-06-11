@@ -20,9 +20,11 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
+// 引入echarts
+import * as echarts from 'echarts'
 // 注册插件
 Vue.use(VueQuillEditor /* { default global options } */)
-
+Vue.prototype.$echarts = echarts
 // 挂载到vue的原型对象上供全局使用。
 Vue.prototype.$dayjs = dayjs
 
