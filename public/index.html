@@ -7,8 +7,37 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title>
-    <%= htmlWebpackPlugin.options.title %>
+    <!-- htmlWebpackPlugin插件名称 options参属项 -->
+    <%= htmlWebpackPlugin.options.isProd ? '华为电商管理后台' : '开发后台' %>
   </title>
+  <!--  《%=模板字符串语法 -->
+  <!-- 只有prod(发布阶段)生效 -->
+  <% if(htmlWebpackPlugin.options.isProd){ %>
+    <!-- nprogress 的样式表文件 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.css" />
+    <!-- 富文本编辑器 的样式表文件 最新版本1.3.5 -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/quill/1.3.5/quill.core.min.css" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/quill/1.3.5/quill.snow.min.css" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/quill/1.3.5/quill.bubble.min.css" />
+    <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.7/theme-chalk/index.css" />
+
+    <!-- js文件 -->
+    <script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-router/3.5.1/vue-router.min.js"></script>
+    <script src="https://cdn.staticfile.org/vuex/3.6.2/vuex.min.js"></script>
+    <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+    <script src="https://cdn.staticfile.org/lodash.js/4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.staticfile.org/echarts/5.3.2/echarts.min.js"></script>
+    <script src="https://cdn.staticfile.org/nprogress/0.2.0/nprogress.min.js"></script>
+    <script src="https://cdn.staticfile.org/dayjs/1.11.2/dayjs.min.js"></script>
+    <!-- 富文本编辑器的 js 文件 -->
+    <script src="https://cdn.staticfile.org/quill/1.3.5/quill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-quill-editor@3.0.6/dist/vue-quill-editor.js"></script>
+    <script src="https://cdn.staticfile.org/element-ui/2.15.7/index.js"></script>
+
+    <% } %>
+      <!-- 只有prod(发布阶段)生效 -->
+
 </head>
 
 <body>

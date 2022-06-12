@@ -143,8 +143,8 @@ export default {
       this.total = data.data.total
     },
     querySearch(queryString, cb) {
-      var suggestions = this.suggestions
-      var results = queryString ? suggestions.filter(this.createFilter(queryString)) : suggestions
+      const suggestions = this.suggestions
+      const results = queryString ? suggestions.filter(this.createFilter(queryString)) : suggestions
       // 调用 callback 返回建议列表的数据
       cb(results)
     },

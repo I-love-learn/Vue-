@@ -240,7 +240,7 @@ export default {
             )
           })
           roles.children = arr
-          console.log(arr)
+          /* console.log(arr) */
           // 试着在这里动data.data好了
           this.$message({
             type: 'success',
@@ -399,7 +399,7 @@ export default {
       this.authorized = []
     },
     async assignRights() {
-      console.log(this.authorizedId)
+      /* console.log(this.authorizedId) */
       // 触发el提供的组件内部方法的方式是refs.xx.方法 getCheckedKeys只能获得被选中的叶子节点的 keys getHalfCheckedKeys若节点可被选择（即show-checkbox为 true），则返回目前半选中的节点的 key 所组成的数组
       // 合并俩数组，选中的和半选中的包括123级
       this.authorized = [...this.$refs.tree.getCheckedKeys(), ...this.$refs.tree.getHalfCheckedKeys()]

@@ -103,7 +103,7 @@ export default {
     resetForm(formName) {
       // 参数是表单对象
       // 获取对象属性 可以obj.属性名 或者obj['属性名']
-      console.log(formName)
+      /* console.log(formName) */
       // ref获得的就是dom元素
       this.$refs[formName].resetFields()
     }

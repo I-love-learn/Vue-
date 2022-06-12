@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+/* import Login from '@/views/login/Login'
 import Home from '@/views/home/HomeView'
 import Welcome from '@/components/welcome/Welcome'
 import Users from '@/views/users/UsersView'
@@ -11,10 +12,26 @@ import List from '@/views/list/GoodsList'
 // 导入添加商品组件
 import Add from '@/views/add/AddGoods'
 import Edit from '@/views/edit/EditGood'
-/* import Order from '@/views/order/OrderList' */
+import Order from '@/views/order/OrderList'
+import Reports from '@/views/report/ReportView'
+ */
+// @路由懒加载以函数形式 重新导入路由组件  webpackChunkName后面是分组名 相同分组会合并到同一个js文件加载  当我们点击对应路由时候 对应的组件会被加载 执行对应的函数然后加载。 之前没有用懒加载，所有的组件都会被加载
 // 在main.js中已经引入过 element的模块了 而element模块中将$message挂载到了vue的prototype上，因此 这里不需要再次引入element模块了  element组件中的this.$message弹出框的this是vue实例 而router中的this就是router实例，因此不生效 这里我的做法是在下面new一个Vue实例 然后弹出框
 // @需要注意的是 import是异步加载的 因此element中this.$message挂载到vue.prototype的时机在下面的router.beforeEach声明路由首位之前，因此这里可以执行 new Vue().$message ，因为此时$message已经挂载到Vue的原型对象上了，假如this.$message挂载到vue.prototype的时机在router.beforeEach后就要报错了，因此安全起见 可以在这里也引入element模块
 Vue.use(VueRouter)
+const Login = () => import(/* webpackChunkName: "login" */ '@/views/login/LoginView')
+const Home = () => import(/* webpackChunkName: "home" */ '@/views/home/HomeView')
+const Welcome = () => import(/* webpackChunkName: "home" */ '@/components/welcome/Welcome')
+const Users = () => import(/* webpackChunkName: "users" */ '@/views/users/UsersView')
+const Roles = () => import(/* webpackChunkName: "roles" */ '@/views/roles/RolesView')
+const Rights = () => import(/* webpackChunkName: "rights" */ '@/views/rights/RightsView')
+const Cate = () => import(/* webpackChunkName: "cate" */ '@/views/cate/ProductsCate')
+const Params = () => import(/* webpackChunkName: "params" */ '@/views/params/GoodsParams')
+const List = () => import(/* webpackChunkName: "list" */ '@/views/list/GoodsList')
+const Add = () => import(/* webpackChunkName: "add" */ '@/views/add/AddGoods')
+const Edit = () => import(/* webpackChunkName: "edit" */ '@/views/edit/EditGood')
+const Order = () => import(/* webpackChunkName: "order" */ '@/views/order/OrderList')
+const Reports = () => import(/* webpackChunkName: "reports" */ '@/views/report/ReportView')
 const routes = [
   {
     path: '/',
@@ -25,7 +42,7 @@ const routes = [
     // 我们要把首页路由连接到登录页 而不能直接把首页就设置成登录页
     path: '/login',
     // 导入组件的第二种方式 这样不需要在外面import了
-    component: () => import('../views/login/LoginView.vue')
+    component: Login
   },
   // import命令能够接受什么参数，import()函数就能接受什么参数，两者区别主要是后者为动态加载。
   {
@@ -43,9 +60,9 @@ const routes = [
       // 注册为home路由下的子路由 路由地址为goods/add 这里只是路由地址为goods/add 但add并非goods下的子路由 路由地址和router-view的对应关系是，routes规则里的亲儿子路由对应的是app.vue中的router-view，最底层的默认路由就是/ /展示的是app.vue的内容 /下一级的都是用app.vue中的router-view来切换的，如果亲儿子路由对应的.vue组件中还有router-view，那么该router-view想要注册路由，则需要在亲儿子路由规则里的children中，path可以带/ 如果path带/了，那么对应的路由跳转地址也要带/ /是根目录的意思
       { path: 'goods/add', component: Add },
       { path: 'goods/edit', component: Edit },
-      // 导入组件第二种方式
-      { path: 'orders', component: () => import('@/views/order/OrderList') },
-      { path: 'reports', component: () => import('@/views/report/ReportView') }
+      // 导入组件第二种方式 ()=>import(/* webpackChunkName: "order" */ '@/views/order/OrderList')
+      { path: 'orders', component: Order },
+      { path: 'reports', component: Reports }
     ]
   }
 ]

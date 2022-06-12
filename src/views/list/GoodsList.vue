@@ -122,11 +122,11 @@ export default {
     // 搜索建议事件
     querySearch(queryString, cb) {
       // queryString是我们输入的字符串
-      var searchSuggestionList = this.searchSuggestionList
+      const searchSuggestionList = this.searchSuggestionList
       // 要展示的建议列表，输入框为空就是展示所有建议列表，有匹配就展示匹配的内容
       // filter(function(item,index,arr))
       // filter方法里面的参数是函数
-      var results = queryString ? searchSuggestionList.filter(this.createFilter(queryString)) : searchSuggestionList
+      const results = queryString ? searchSuggestionList.filter(this.createFilter(queryString)) : searchSuggestionList
       // 调用 callback 返回建议列表的数据
       cb(results)
     },

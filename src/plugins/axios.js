@@ -2,6 +2,11 @@
 // 这个文件是一个自定义插件 不过是vuecli帮我们封装好的 里面是封装axios的方法来调用接口 以及快速的为项目配置多个接口 以我现在的水平还不会自己封装插件
 import Vue from 'vue'
 import axios from 'axios'
+// 引入nprogress插件
+import NProgress from 'nprogress'
+// 引入nprogress插件的样式
+// import 'nprogress/nprogress.css'
+// 这个插件不需要use和挂载能直接用
 // Full config:  https://github.com/axios/axios#request-config
 // axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || '';
 // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
@@ -25,6 +30,7 @@ _axios.interceptors.request.use(
     // #为请求头添加一个属性 authorization 里面携带的是token值
     config.headers.Authorization = localStorage.getItem('token')
     // 处理完毕必须return出去 否则use使用的是个空值
+    NProgress.start()
     return config
   },
 
@@ -39,6 +45,7 @@ _axios.interceptors.request.use(
 _axios.interceptors.response.use(
   function (response) {
     // Do something with response data 处理响应数据
+    NProgress.done()
     return response
   },
   function (error) {

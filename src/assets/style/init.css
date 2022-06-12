@@ -30,3 +30,15 @@ body .el-table-filter   .el-checkbox__label{
 .el-cascader-panel {
   height: 260px;
 }
+/*index.scss*/
+/* 我这没scss 但看着和less差不多 */
+/*隐藏滚轮*/
+/* 不知道为啥 我取消在main.js中引入那包还是隐藏了 */
+::-webkit-scrollbar {
+  display: none;
+}
+/* 改变nprogress颜色大小 */
+#nprogress .bar {
+  background: #00FF00 !important;
+  height: 5px;
+  }

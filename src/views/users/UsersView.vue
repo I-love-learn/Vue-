@@ -355,7 +355,7 @@ export default {
     },
     // 根据id删除对应用户
     removeUser(id) {
-      console.log(id)
+      /* console.log(id) */
       //  this.$confirm执行结果是个promise对象，既然是promise对象，就能用async和await转换为同步执行，执行的结果，如果确定结果是confirm字符串，取消结果是cancel字符串
       this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
         confirmButtonText: '确定',

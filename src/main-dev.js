@@ -23,6 +23,9 @@ import 'quill/dist/quill.bubble.css'
 // 引入echarts
 import * as echarts from 'echarts'
 // 注册插件
+// 隐藏 右侧浏览器 滚动条 事实证明居然不用引入这俩 只写那个样式也能隐藏 离谱
+/* import VueSmoothScroll from 'vue2-smooth-scroll'
+Vue.use(VueSmoothScroll) */
 Vue.use(VueQuillEditor /* { default global options } */)
 Vue.prototype.$echarts = echarts
 // 挂载到vue的原型对象上供全局使用。

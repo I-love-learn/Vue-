@@ -36,7 +36,7 @@ export default {
         }) */
         // @即便不写mounted 防止父级传递的同步数据渲染不出来的第二种办法给watch添加一个immediate: true 意思是一进页面就执行handler一次，但是此时会报错报dom未渲染，解决方法是在这里加this.$nextTick或者在methods中的init方法中加this.$nextTick
         // @watch加了immediate: true 页面一刷新（进入）就会立即执行一次，时机要在mounted之前，这也就是为什么获取不到dom的原因，而watch正常的时机是在mounted之后，加了immediate: true执行时机被提前了。
-        console.log(newVal)
+        /* console.log(newVal) */
         this.initEcharts(newVal)
         // 可以理解为 一开始的val是空被监听到了 一直等到mounted后 val还是空呢 watch就是从mounted后才生效的 后来变成了newval被监听到了 便渲染echarts了
       }
@@ -47,7 +47,7 @@ export default {
     // 初始化echarts方法
     initEcharts(option) {
       // 初始化echarts实例
-      console.log(option)
+      /* console.log(option) */
       const myChart = echarts.init(this.$refs.echarts)
       myChart.setOption(option)
     }
