@@ -30,7 +30,7 @@
           <!-- 这里老师用的计算属性 由于这个判断用的不多 我直接写成内联了 -->
           <el-button type="primary" :disabled="selectValue.length !== 3" size="small" @click="add">添加参数</el-button>
           <!-- 动态参数表格 -->
-          <el-table :data="showTabInfo" border stripe style="width: 100%" v-if="selectValue.length !== 0">
+          <el-table :data="showTabInfo" border stripe style="width: 100%" v-if="activeName == 0">
             <!-- 展开按钮 -->
             <el-table-column type="expand">
               <template slot-scope="scope">
@@ -70,7 +70,7 @@
         <el-tab-pane label="静态属性" name="1">
           <el-button type="primary" :disabled="selectValue.length !== 3" size="small" @click="add">添加属性</el-button>
           <!-- 静态属性表格 -->
-          <el-table :data="showTabInfo" border stripe style="width: 100%" v-if="selectValue.length !== 0">
+          <el-table :data="showTabInfo" border stripe style="width: 100%" v-if="activeName == 1">
             <!-- 展开按钮 -->
             <el-table-column type="expand">
               <template slot-scope="scope">
