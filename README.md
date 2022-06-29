@@ -2,21 +2,21 @@
 
 ### 项目截图
 
-![登录界面](%E8%B5%84%E6%96%99/mdImages/%E7%99%BB%E5%BD%95%E7%95%8C%E9%9D%A2.png)
+![登录界面](https://user-images.githubusercontent.com/95730717/176366448-f2c9ff67-ef2a-4145-ba01-cf31d1d9224d.png)
 
-![后台主界面](%E8%B5%84%E6%96%99/mdImages/%E5%90%8E%E5%8F%B0%E6%AC%A2%E8%BF%8E%E7%95%8C%E9%9D%A2.png)
+![后台欢迎界面](https://user-images.githubusercontent.com/95730717/176366623-65752d6e-4e8e-4231-a8e3-f2a75403966e.png)
 
-![角色列表](%E8%B5%84%E6%96%99/mdImages/%E8%A7%92%E8%89%B2%E5%88%97%E8%A1%A8.png)
+![角色列表](https://user-images.githubusercontent.com/95730717/176366688-7691ba6d-0d37-4f58-9caa-716e1e330a99.png)
 
-![商品列表](%E8%B5%84%E6%96%99/mdImages/%E5%95%86%E5%93%81%E5%88%97%E8%A1%A8.png)
+![商品列表](https://user-images.githubusercontent.com/95730717/176366748-59c6cf75-75e5-45fb-9172-080cae531510.png)
 
-![数据报表](%E8%B5%84%E6%96%99/mdImages/%E6%95%B0%E6%8D%AE%E6%8A%A5%E8%A1%A8.png)
+![数据报表](https://user-images.githubusercontent.com/95730717/176366824-4deafcfd-3ab7-4ae5-afbb-e2cd4f7b5d73.png)
 
-![添加分类](%E8%B5%84%E6%96%99/mdImages/%E6%B7%BB%E5%8A%A0%E5%88%86%E7%B1%BB.png)
+![添加分类](https://user-images.githubusercontent.com/95730717/176366862-d3522444-23a0-4e1e-bc25-c94854e5b2e7.png)
 
-![添加商品](%E8%B5%84%E6%96%99/mdImages/%E6%B7%BB%E5%8A%A0%E5%95%86%E5%93%81.png)
+![添加商品](https://user-images.githubusercontent.com/95730717/176366912-1e94fbd4-ad90-4fe5-a256-68212fc29a07.png)
 
-![用户列表](%E8%B5%84%E6%96%99/mdImages/%E7%94%A8%E6%88%B7%E5%88%97%E8%A1%A8.png)
+![用户列表](https://user-images.githubusercontent.com/95730717/176366949-dbbd7f85-19e0-4496-8054-c05aa7384a7a.png)
 
 ### 项目主要技术栈
 
@@ -40,13 +40,13 @@ vuerouter是用的hash而非history。
 
 首先下载vue_api_server文件夹，然后npm i 安装依赖包，这个是我们的本地服务器文件，安装完毕后，下载phpstudy_pro,配置mysql，配置很简单，只需要新建一个数据库，数据库的命名与vue_api_server文件夹下config中的default.json保持一致即可（很重要）。
 
-![输入图片说明](%E8%B5%84%E6%96%99/mdImages/%E6%96%B0%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93.png)
+![新建数据库](https://user-images.githubusercontent.com/95730717/176367020-c91ab592-06db-4bfc-8103-0597fb28d42d.png)
 
-![输入图片说明](%E8%B5%84%E6%96%99/mdImages/%E5%91%BD%E5%90%8D.png)
+![命名](https://user-images.githubusercontent.com/95730717/176367047-b6557048-1adb-4875-a072-eaddb49cab58.png)
 
 导入数据库
 
-![输入图片说明](%E8%B5%84%E6%96%99/mdImages/%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE%E5%BA%93.png)
+![导入数据库](https://user-images.githubusercontent.com/95730717/176367084-ec3740cb-3c2a-4dc6-a170-585488c3d2b8.png)
 
 浏览选择vue_api_server文件夹下db文件夹下的mydb.sql。
 
